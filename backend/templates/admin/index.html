@@ -1,0 +1,36 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+  <h1>Painel de Controle da Cápsula</h1>
+  <p class="lead">Bem-vindo, {{ current_user.name or 'Admin' }}!</p>
+  <hr>
+  
+  {# LINK DE LOGOUT FUNCIONAL - Direto no corpo da página #}
+  <p>
+      <a href="{{ url_for('admin_logout_view') }}" class="btn btn-danger">Sair do Painel (Logout)</a>
+  </p>
+
+  <p>Use o menu de navegação acima para gerenciar os dados da aplicação.</p>
+  
+  {# Você pode adicionar qualquer outro conteúdo que quiser aqui dentro #}
+
+{% endblock %}
+
+{# Remova (ou comente) os blocos nav_links e access_control anteriores #}
+{#
+{% block nav_links %}
+    {{ super() }}
+    {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('admin_logout_view') }}" id="custom-logout-link">Logout</a></li>
+    {% endif %}
+{% endblock %}
+#}
+
+{#
+{% block access_control %}
+    {{ super() }}
+    {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('admin_logout_view') }}" id="custom-logout-link-final">Logout</a></li>
+    {% endif %}
+{% endblock %}
+#}

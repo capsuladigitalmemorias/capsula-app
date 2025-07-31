@@ -1,0 +1,35 @@
+/* frontend/src/pages/instalar.css */
+
+.instalar-container {
+  /* mantêm os outros estilos */
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0px auto;
+  padding: 24px 16px;
+  overflow: hidden;
+  /* Adicione line-height padrão para todo texto */
+  line-height: 1.7;
+}
+
+.instalar-container p,
+.instalar-container li {
+  line-height: 1.7;
+  margin-bottom: 8px; /* Espaço extra entre parágrafos e itens */
+}
+
+.instalar-container ol,
+.instalar-container ul {
+  margin: 0 0 16px 0; /* Espaço embaixo das listas */
+  padding-left: 1.2em;
+}
+
+.icon-share-safari {
+    width: 1.9em; /* Ajuste o tamanho conforme a necessidade */
+    height: 1.9em;
+    vertical-align: middle; /* Ajuda a alinhar o ícone com o texto ao lado */
+    margin: 0 0.2em; /* Adiciona um pequeno espaço ao redor do ícone */
+}

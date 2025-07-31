@@ -1,0 +1,566 @@
+/* src/components/Dashboard.css */
+
+/* --- Header --- */
+.dashboard-header {
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-light);
+    padding: 1rem 0; /* Padding vertical do header */
+    margin-bottom: 1rem;
+}
+
+.header-content { /* Este será o div DENTRO do .content-wrapper, para alinhar itens */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* REMOVIDO: max-width, margin, padding. Eles serão controlados pelo .content-wrapper no JSX */
+}
+
+/* --- Logo Component --- */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-capsule-outer-wrapper {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.logo-capsule-outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-blue);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+}
+
+.logo-capsule-inner {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-capsule-detail {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background-color: #93c5fd; /* blue-300 */
+    opacity: 0.8;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+    letter-spacing: 0.5px;
+}
+
+/* --- User Menu --- */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: var(--text-color-medium);
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease;
+}
+
+.menu-button:hover {
+    background-color: var(--border-color);
+}
+
+.menu-profile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-profile-link:hover {
+    background-color: var(--lighter-blue);
+    border-color: var(--primary-blue);
+}
+
+.profile-icon-bg {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.875rem;
+}
+
+.profile-name {
+    color: var(--text-color-medium);
+    display: inline;
+}
+
+.logout-button {
+    background-color: transparent;
+    color: var(--text-color-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #fef2f2; /* red-50 */
+    border-color: #f87171; /* red-400 */
+    color: #dc2626; /* red-600 */
+}
+
+.logout-text {
+    display: none; /* Esconde o texto "Sair" por padrão */
+}
+.logout-icon {
+    display: inline; /* Exibe o ícone de logout por padrão */
+}
+
+/* --- Messages --- */
+.welcome-card { /* Esta é mais específica do dashboard, mantemos */
+    background-color: var(--lighter-blue); /* blue-100 */
+    border: 1px solid #93c5fd; /* blue-300 */
+    color: #0369a1; /* cyan-800 */
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.welcome-card-text {
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* --- Quote of the Day --- */
+.quote-card {
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    margin-bottom: 1rem;
+    padding: 1.5rem; /* Aumentado o padding para mais espaço interno */
+    border: 1px solid var(--border-color); /* Adicionado um border sutil */
+}
+
+.quote-title {
+    font-size: 1.25rem; /* Aumentado o tamanho da fonte */
+    font-weight: 700; /* Tornando o título mais bold */
+    color: var(--primary-blue);
+    margin-top: 0;
+    margin-bottom: 1rem; /* Aumentado a margem inferior */
+    text-align: center;
+    text-transform: uppercase; /* Adiciona um toque profissional */
+    letter-spacing: 0.5px; /* Leve espaçamento entre letras */
+}
+
+.quote-content {
+    text-align: center;
+}
+
+.quote-text {
+    font-size: 1.15rem; /* Aumentado o tamanho da fonte da frase */
+    font-style: italic;
+    color: var(--text-color-dark); /* Deixado mais escuro para destaque */
+    margin: 0;
+    position: relative;
+    padding: 0 2rem; /* Mais espaço para as aspas */
+    line-height: 1.6; /* Melhorar legibilidade */
+    font-weight: 500; /* Um pouco mais de peso na fonte */
+}
+
+.quote-mark-open, .quote-mark-close {
+    font-size: 3.5rem; /* Tornando as aspas bem maiores */
+    position: absolute;
+    color: var(--primary-blue);
+    opacity: 0.2; /* Mais transparentes, para parecerem um fundo decorativo */
+    font-weight: bold; /* Para elas se destacarem visualmente */
+}
+
+.quote-mark-open {
+     left: 0;
+    top: -0.5rem; /* Ajustado a posição */
+}
+
+.quote-mark-close {
+    right: 0;
+    bottom: -0.8rem; /* Ajustado a posição */
+}
+
+/* --- Statistics Grid --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card {
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-color-light);
+    margin: 0 0 0.25rem 0;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin: 0;
+}
+
+.stat-link {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin: 0;
+    text-decoration: none;
+}
+
+/* --- Quick Actions Grid --- */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.action-card {
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.action-icon-bg {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.action-icon-bg-blue {
+    background-color: #ebf5ff; /* blue-50 */
+    color: var(--primary-blue);
+}
+
+.action-icon-bg-cyan {
+    background-color: #f0f9ff; /* sky-50 */
+    color: #0ea5e9; /* sky-600 */
+}
+
+.action-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.action-description {
+    color: var(--text-color-light);
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    display: none; /* Escondido por padrão, para telas menores */
+}
+
+/* --- Memory Cards (Random & Latest Capsule) --- */
+.memory-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.memory-card {
+    flex: 1;
+    min-width: 350px;
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 50px; /* Espaço para os botões na parte inferior */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.memory-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    padding: 1rem 1rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.memory-card-icon {
+    font-size: 1.25rem;
+}
+
+.memory-card-image-container {
+    height: 100px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-white);
+}
+
+.memory-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.memory-card-content {
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.memory-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.memory-mood-emoji {
+    font-size: 1.25rem;
+}
+
+.memory-capsule-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.memory-date {
+    color: var(--text-color-light);
+    font-size: 0.75rem;
+}
+
+.memory-description {
+    color: var(--text-color-medium);
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.memory-tags-media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.memory-card-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px;
+    background-color: rgba(255,255,255,0.9);
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* --- No Capsule Placeholder --- */
+.no-capsule-card {
+    flex: 1;
+    min-width: 350px;
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+.no-capsule-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.no-capsule-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.no-capsule-subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.no-capsule-description {
+    color: var(--text-color-light);
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+/* --- Tips Section --- */
+.tips-section {
+    margin-bottom: 2rem;
+}
+
+.tips-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tips-icon {
+    font-size: 1.25rem;
+}
+
+.tips-card {
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    padding: 1rem;
+}
+
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tip-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.tip-item-even {
+    background-color: var(--bg-light); /* gray-50 */
+}
+
+.tip-item-odd {
+    background-color: var(--bg-white);
+}
+
+.tip-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tip-number {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.tip-description {
+    font-size: 0.8125rem;
+    color: var(--text-color-medium);
+    margin: 0;
+    padding-left: 2rem;
+}
+
+.tips-action {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* --- Media Queries --- */
+@media (min-width: 640px) { /* Small screens (sm) */
+    .action-description {
+        display: block; /* Mostra a descrição nas ações rápidas */
+    }
+}
+
+@media (min-width: 768px) { /* Medium screens (md) */
+    .logout-text {
+        display: inline;
+    }
+    .logout-icon {
+        display: none;
+    }
+}

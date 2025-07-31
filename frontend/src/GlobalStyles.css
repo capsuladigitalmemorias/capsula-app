@@ -1,0 +1,207 @@
+/* src/GlobalStyles.css */
+
+/* --- Variáveis CSS --- */
+:root {
+    --primary-blue: #3b82f6;
+    --light-blue: #eff6ff; /* blue-50 */
+    --lighter-blue: #e0f2fe; /* blue-100 */
+    --text-color-dark: #111827;
+    --text-color-medium: #4b5563;
+    --text-color-light: #6b7280;
+    --bg-light: #f8fafc; /* gray-50 */
+    --bg-white: white;
+    --border-color: #e5e7eb;
+    --shadow-light: 0 1px 3px rgba(0,0,0,0.1);
+    --red-light: #fef2f2; /* red-50 */
+    --red-border: #fecaca; /* red-200 */
+    --red-text: #dc2626; /* red-600 */
+    --green-light: #dcfce7; /* green-100 */
+    --green-text: #16a34a; /* green-600 */
+    --yellow-light: #fffacd; /* yellow-100 */
+    --yellow-text: #ca8a04; /* yellow-600 */
+
+}
+
+/* Aplica box-sizing: border-box a todos os elementos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* --- Novos estilos para o layout "sticky footer" --- */
+/* Garante que html e body preencham toda a altura da viewport */
+html, body, #root {
+    height: 100%; /* Faz com que eles preencham a altura da viewport */
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; /* Isso pode ser removido se o problema da barra for resolvido pelos elementos filhos */
+}
+
+/* Faz com que o elemento #root (onde o React monta o app) seja um container flex e ocupe toda a altura */
+#root {
+    display: flex; /* Transforma #root em um container flexível */
+    flex-direction: column; /* Organiza os filhos verticalmente */
+    background-color: #F3F4F6; /* SUA COR DE FUNDO PRINCIPAL AQUI (o cinza bem claro) */
+    /* Isso vai garantir que a cor de fundo preencha toda a tela */
+}
+
+/* Estiliza o novo .app-layout-container (que envolve Routes e Footer no App.jsx) */
+.app-layout-container {
+  display: flex; /* Torna este div flexível */
+  flex-direction: column; /* Itens filhos em coluna */
+  flex-grow: 1; /* Permite que este container cresça e ocupe todo o espaço disponível dentro de #root */
+}
+
+/* Estiliza a área de conteúdo principal (o div que envolve as <Routes>) para "empurrar" o rodapé */
+.main-content-area-for-routes {
+  flex-grow: 1; /* Esta é a chave: faz com que a área de conteúdo se expanda e empurre o rodapé para o final */
+  overflow-y: auto; /* Permite rolagem interna se o conteúdo exceder */
+}
+
+/* Classe global para encapsular o conteúdo principal com largura e centralização */
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px; /* Largura máxima desejada para o conteúdo */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    padding: 0 1rem; /* Padding lateral */
+}
+
+/* --- Base para Cards --- */
+.card-base {
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    padding: 1rem;
+}
+
+/* Estilos para Cards Interativos (com hover effect) */
+.interactive-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.interactive-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* --- Base para Botões e Links de Ação --- */
+.action-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+
+.primary-button {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+}
+
+.primary-button:hover {
+    background-color: #2980b9; /* Darker blue */
+}
+
+.secondary-button {
+    background-color: var(--bg-white);
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+}
+
+.secondary-button:hover {
+    background-color: var(--lighter-blue);
+    color: var(--primary-blue);
+}
+
+/* --- Mensagens de Feedback (Erro, Sucesso, Info) --- */
+.message-box {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.message-box.error {
+    background-color: var(--red-light);
+    border: 1px solid var(--red-border);
+    color: var(--red-text);
+}
+
+.message-box.success {
+    background-color: var(--green-light);
+    border: 1px solid var(--green-border);
+    color: var(--green-text);
+}
+
+.message-box.info {
+    background-color: var(--lighter-blue);
+    border: 1px solid #93c5fd; /* blue-300 */
+    color: #0369a1; /* cyan-800 */
+}
+
+/* --- Placeholder de Imagem Carregando (Spinner) --- */
+.image-loading-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-light);
+    color: var(--text-color-light);
+    font-size: 2rem;
+}
+
+/* --- Animação de Spinner --- */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* --- Indicadores de Mídia (usados com ícones) --- */
+.media-indicator {
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.media-indicator-audio {
+    background-color: var(--lighter-blue); /* blue-100 */
+    color: #0ea5e9; /* sky-600 */
+}
+
+.media-indicator-image {
+    background-color: var(--green-light); /* green-100 */
+    color: var(--green-text); /* green-600 */
+}
+
+/* --- Tags Comuns --- */
+.tag-item {
+    padding: 0.125rem 0.5rem;
+    background-color: #f3f4f6; /* gray-100 */
+    color: var(--text-color-medium);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* --- Media Queries Gerais --- */
+@media (min-width: 640px) { /* Small screens (sm) */
+    /* Exemplo: .some-class { font-size: 1rem; } */
+}
+
+@media (min-width: 768px) { /* Medium screens (md) */
+    /* Exemplo: .another-class { margin-top: 1rem; } */
+}

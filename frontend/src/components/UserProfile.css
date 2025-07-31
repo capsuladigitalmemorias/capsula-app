@@ -1,0 +1,185 @@
+/* src/components/UserProfile.css */
+
+.profile-page-content {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  max-width: 1200px; /* Seu max-width personalizado */
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0px auto; /* Sua margem personalizada */
+  padding: 24px 16px; /* Seu padding personalizado */
+  overflow: hidden;
+  line-height: 1.7;
+}
+
+.profile-header {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 2.2em;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.profile-section {
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.section-title {
+    color: #34495e;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95em;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #555;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.profile-button {
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-size: 1.05em;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.profile-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.profile-button:active {
+    transform: translateY(0);
+}
+
+.delete-button {
+    background-color: #e74c3c;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+.delete-confirmation {
+    border: 1px solid #e74c3c;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    background-color: #fcecec;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.1);
+}
+
+.delete-confirmation h3 {
+    color: #c0392b;
+    margin-top: 0;
+    font-size: 1.4em;
+    border-bottom: 1px solid #f2d7d5;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.delete-confirmation p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.confirmation-button-group .profile-button {
+    margin-right: 10px;
+    margin-top: 0; /* Override default margin-top for these buttons */
+}
+
+.confirmation-button-group .profile-button:last-child {
+    background-color: #95a5a6; /* Cancel button color */
+}
+.confirmation-button-group .profile-button:last-child:hover {
+    background-color: #7f8c8d;
+}
+
+.info-text {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 10px;
+}
+
+/* ESTILOS ATUALIZADOS PARA O BOTÃO DE VOLTAR (SEM SETA) */
+.back-to-dashboard-button {
+    /* display: inline-flex;  Não é mais necessário */
+    /* align-items: center; Não é mais necessário */
+    /* gap: 5px; Não é mais necessário */
+    margin-bottom: 20px; /* Espaço abaixo do botão */
+    text-decoration: none; /* Remove o sublinhado do link */
+
+    /* Propriedades para combinar com .profile-button */
+    padding: 12px 20px; /* Mesmo padding */
+    background-color: #3498db; /* Mesma cor de fundo */
+    color: white; /* Mesma cor de texto */
+    border: none; /* Remove a borda */
+    border-radius: 6px; /* Mesmo arredondamento */
+    cursor: pointer;
+    font-size: 1.05em; /* Mesmo tamanho de fonte */
+    font-weight: 500; /* Mesmo peso da fonte */
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease; /* Mesma transição */
+}
+
+.back-to-dashboard-button:hover {
+    background-color: #2980b9; /* Mesma cor de hover */
+    transform: translateY(-1px); /* Mesmo efeito de hover */
+}
+
+.back-to-dashboard-button:active {
+    transform: translateY(0); /* Mesmo efeito de clique */
+}
+
+
+/* Ajuste para que o botão de voltar não fique tão colado ao topo em telas menores */
+@media (max-width: 768px) {
+    .profile-container {
+        margin-top: 15px;
+    }
+    .back-to-dashboard-button {
+        margin-top: 10px;
+    }
+}

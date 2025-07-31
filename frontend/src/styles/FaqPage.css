@@ -1,0 +1,47 @@
+/* frontend/src/styles/FaqPage.css */
+.faq-page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o footer fique no final */
+}
+
+.faq-content {
+    flex-grow: 1; /* Faz o conteúdo principal preencher o espaço disponível */
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.faq-content h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.faq-section {
+    margin-bottom: 30px;
+}
+
+.faq-section h2 {
+    color: #555;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-item h3 {
+    color: #007bff; /* Ou a cor primária do seu tema */
+    margin-bottom: 5px;
+}
+
+.faq-item p {
+    color: #666;
+    line-height: 1.6;
+}

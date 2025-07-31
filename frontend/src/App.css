@@ -1,0 +1,667 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Garante que o elemento HTML não tenha um background que cubra o body */
+html {
+  background-color: #6B7280;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Este é o gradiente que você viu na página de perfil */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  color: #6B7280;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container principal - Garante transparência para o background do body */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent; /* Adicionado: Garante que este contêiner seja transparente */
+}
+
+/* Autenticação - CORRIGIDO PARA CENTRALIZAR */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.auth-card {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto; /* FORÇADO: Centralização */
+}
+
+.logo {
+  margin-bottom: 30px;
+}
+
+.logo h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.logo p {
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+/* Seções de cabeçalho das páginas */
+.page-header {
+  margin-bottom: 24px; /* Espaço abaixo do cabeçalho */
+  text-align: center;   /* Centraliza o texto */
+}
+
+/* Opcional: Se quiser dar um estilo específico para o título */
+.page-title {
+  font-size: 2.2rem; /* Exemplo: Tamanho da fonte do título */
+  color: #333;       /* Exemplo: Cor do texto */
+  text-align: center !important;
+}
+
+/* Formulários - CORRIGIDO PARA MOBILE E DESKTOP */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px; /* IMPORTANTE: Evita zoom no iOS */
+  font-family: inherit;
+  background: white !important; /* FORÇADO: Fundo branco */
+  color: #2d3748 !important; /* FORÇADO: Texto escuro */
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none; /* Remove estilo padrão iOS */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* FORÇADO: Garantir fundo branco em todos os estados */
+.form-input:focus,
+.form-input:active,
+.form-input:hover {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  background: white !important;
+  color: #2d3748 !important;
+}
+
+.form-input::placeholder {
+  color: #a0aec0 !important; /* FORÇADO: Placeholder visível */
+  opacity: 1;
+}
+
+/* Textarea específico */
+textarea.form-input {
+  min-height: 100px;
+  resize: vertical;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background: white !important;
+  color: #2d3748 !important;
+}
+
+/* Botões */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: #f7fafc;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+  background: #edf2f7;
+}
+
+/* Navbar - MELHORADO PARA DESKTOP */
+.navbar {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-content {
+  max-width: 96%; /* AUMENTADO PARA DESKTOP */
+  margin: 0 auto;
+  padding: 0 40px; /* AUMENTADO PARA DESKTOP */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-link {
+  color: #4a5568;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background: #f7fafc;
+  color: #667eea;
+}
+
+.nav-link.active {
+  background: #667eea;
+  color: white;
+}
+
+/* Container principal - CORRIGIDO PARA DESKTOP */
+.main-container {
+  max-width: 95%; /* AUMENTADO PARA DESKTOP */
+  margin: 0 auto;
+  padding: 32px 0px; /* AUMENTADO PARA DESKTOP */
+  flex: 1;
+  background: white; /* Fundo branco */
+  border-radius: 16px; /* Bordas arredondadas */
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04); /* Sombra para dar profundidade */
+}
+
+/* Dashboard - MELHORADO PARA DESKTOP */
+.welcome-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.welcome-section h2 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+.welcome-section p {
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+/* Estatísticas - MELHORADO PARA DESKTOP */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* AUMENTADO */
+  gap: 32px; /* AUMENTADO */
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: white;
+  padding: 32px; /* AUMENTADO */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Ações rápidas */
+.quick-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* Seção de inspiração */
+.inspiration-section {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.inspiration-section h3 {
+  color: #2d3748;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+}
+
+.inspiration-quote {
+  font-size: 1.2rem;
+  color: #4a5568;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Formulário de cápsula */
+.form-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
+
+/* Seletor de humor - CORRIGIDO */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mood-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  user-select: none;
+}
+
+.mood-item:hover {
+  border-color: #667eea;
+  background: #f7fafc;
+}
+
+.mood-item.selected {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.mood-emoji {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.mood-name {
+  font-size: 0.85rem;
+  text-align: center;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+/* Lista de cápsulas - CORRIGIDO COMPLETAMENTE */
+.capsules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); /* AUMENTADO */
+  gap: 64px; /* AUMENTADO */
+}
+
+.capsule-card {
+  background: white;
+  border-radius: 12px;
+  padding: 40px; /* MAIS PADDING INTERNO */
+  margin-bottom: 16px; /* ESPAÇO EXTRA */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  overflow: hidden; /* IMPORTANTE: Evita overflow */
+  word-wrap: break-word; /* FORÇADO */
+  overflow-wrap: break-word; /* FORÇADO */
+}
+
+.capsule-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.capsule-title {
+  font-size: 1.4rem; /* AUMENTADO */
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 16px; /* AUMENTADO */
+  /* CORRIGIDO: Quebra de texto longo */
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto;
+  white-space: pre-wrap;
+}
+
+.capsule-description {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 20px; /* AUMENTADO */
+  font-size: 1rem; /* AUMENTADO */
+  /* CORRIGIDO: Forçar quebra de texto longo */
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* AUMENTADO */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.capsule-mood {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px; /* AUMENTADO */
+}
+
+.capsule-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem; /* AUMENTADO */
+  color: #718096;
+  margin-top: 20px; /* AUMENTADO */
+}
+
+/* Filtros - MELHORADO PARA DESKTOP */
+.filters-section {
+  background: white;
+  padding: 32px; /* AUMENTADO */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px; /* AUMENTADO */
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* AUMENTADO */
+  gap: 24px; /* AUMENTADO */
+  align-items: end;
+}
+
+/* Links */
+.auth-switch {
+  margin-top: 16px;
+  color: #718096;
+}
+
+.auth-switch a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Alertas */
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #f0fff4;
+  color: #22543d;
+  border: 1px solid #9ae6b4;
+}
+
+.alert-error {
+  background: #fed7d7;
+  color: #742a2a;
+  border: 1px solid #feb2b2;
+}
+
+/* Estados de loading */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #718096;
+}
+
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVIDADE CORRIGIDA */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .auth-card {
+    margin: 0 auto;
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+
+  .navbar-content {
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 20px; /* MOBILE */
+    max-width: 100%;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px; /* MOBILE */
+  }
+
+  .quick-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .mood-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .main-container {
+    padding: 16px; /* MOBILE */
+    max-width: 100%;
+  }
+
+  .capsules-grid {
+    grid-template-columns: 1fr; /* MOBILE */
+    gap: 22px; /* MOBILE */
+  }
+
+  .capsule-card {
+    padding: 20px; /* MOBILE */
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr;
+    gap: 16px; /* MOBILE */
+  }
+
+  .filters-section {
+    padding: 20px; /* MOBILE */
+  }
+
+  /* CORRIGIDO: Logo maior no mobile */
+  .logo h1 {
+    font-size: 3rem;
+  }
+
+  .nav-brand h1 {
+    font-size: 2rem;
+  }
+
+  /* MOBILE: Garantir fundo branco nos inputs */
+  .form-input {
+    background: white !important;
+    color: #2d3748 !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  .form-input:focus,
+  .form-input:active {
+    background: white !important;
+    color: #2d3748 !important;
+  }
+}
+
+/* CORRIGIDO: Melhor suporte para dispositivos touch */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover {
+    transform: none;
+  }
+
+  .mood-item:hover {
+    border-color: #e2e8f0;
+    background: white;
+  }
+
+  .stat-card:hover {
+    transform: none;
+  }
+
+  .capsule-card:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* FORÇAR quebra de texto em qualquer elemento */
+.capsule-card * {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* FORÇADO: Garantir inputs com fundo branco em todos os navegadores */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"],
+input[type="number"],
+textarea,
+select {
+  background: white !important;
+  color: #2d3748 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="datetime-local"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  background: white !important;
+  color: #2d3748 !important;
+}

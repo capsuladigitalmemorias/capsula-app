@@ -1,0 +1,299 @@
+/* src/components/CapsulesPage.css */
+
+/* --- Navbar (Menu Superior) --- */
+.navbar {
+    background-color: var(--bg-white);
+    box-shadow: var(--shadow-light);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.navbar-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    letter-spacing: 0.5px;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-color-medium);
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: var(--lighter-blue);
+    color: var(--primary-blue);
+}
+
+.nav-link.active {
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    font-weight: 600;
+}
+
+/* --- Seção de Título da Página e Botão Nova Cápsula --- */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-title {
+    color: var(--text-color-dark);
+    margin: 0;
+    font-size: 2rem;
+}
+
+/* --- Seção de Filtros --- */
+.filters-section {
+    background-color: var(--bg-white);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-light);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filters-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color-dark);
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-color-medium);
+}
+
+.filter-group input[type="text"],
+.filter-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-color-dark);
+    background-color: var(--bg-white);
+}
+
+.filter-group input[type="text"]::placeholder {
+    color: var(--text-color-light);
+}
+
+/* Botão Limpar Filtros */
+.clear-filters-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #e5e7eb; /* gray-200 */
+    color: #4b5563; /* gray-600 */
+    border: 1px solid #d1d5db; /* gray-300 */
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.clear-filters-button:hover {
+    background-color: #d1d5db; /* gray-300 */
+}
+
+/* --- Mensagens de Estado (Loading, No Capsules) --- */
+.status-message-container {
+    background: var(--bg-white);
+    padding: 3rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    box-shadow: var(--shadow-light);
+}
+
+.status-message-text {
+    color: var(--text-color-medium);
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+}
+
+/* --- Grade de Cápsulas --- */
+.capsules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.capsule-card {
+    /* Reutiliza .card-base e .interactive-card do GlobalStyles.css */
+    /* Extende o padding do .card-base */
+    padding: 0; /* Remove padding do card-base para um layout customizado */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Garante que nada transborde do card */
+    position: relative; /* Para posicionar ações na parte inferior */
+}
+
+.capsule-card-content {
+    flex-grow: 1; /* Ocupa o espaço restante */
+    padding: 1.5rem; /* Padding interno do conteúdo */
+    cursor: pointer;
+}
+
+.capsule-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem; /* Espaçamento entre título e humor */
+}
+
+.capsule-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color-dark);
+    margin: 0;
+    flex-grow: 1; /* Permite que o título ocupe o espaço */
+}
+
+.capsule-mood {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0; /* Evita que o humor encolha */
+}
+
+.capsule-mood-emoji {
+    font-size: 1.75rem; /* Emoji maior */
+    margin-bottom: 0.25rem;
+}
+
+.capsule-mood-name {
+    font-size: 0.875rem;
+    color: var(--text-color-light);
+    text-align: center;
+    white-space: nowrap; /* Evita que o nome quebre */
+}
+
+.capsule-description {
+    color: var(--text-color-medium);
+    margin-bottom: 1rem;
+    font-size: 0.9375rem; /* Um pouco maior que o default */
+    line-height: 1.6;
+    word-break: break-word; /* Garante que palavras longas quebrem */
+    max-height: 4.8em; /* Limita a altura para 3 linhas (1.6 * 3 = 4.8) */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona reticências */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita a 3 linhas */
+    -webkit-box-orient: vertical;
+}
+
+.capsule-tags-container {
+    margin-bottom: 1rem;
+    display: flex; /* Para flexionar as tags */
+    flex-wrap: wrap; /* Para que as tags quebrem linha */
+    gap: 0.5rem; /* Espaçamento entre as tags */
+}
+
+.capsule-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem; /* Espaçamento entre os itens meta */
+    font-size: 0.875rem;
+    color: var(--text-color-light);
+}
+
+.capsule-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem; /* Espaçamento entre o ícone e o texto */
+}
+
+/* Ícones de Mídia no Card da Cápsula */
+.capsule-media-indicators {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre os indicadores de mídia */
+    margin-left: auto; /* Empurra os indicadores para a direita */
+}
+
+/* Ações do Card (Editar/Excluir) */
+.capsule-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    border-top: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem; /* Padding que complementa o padding do conteúdo */
+    background-color: var(--bg-white); /* Garante que a área de ações tenha fundo branco */
+}
+
+/* Cores específicas para os botões de ação */
+.edit-button {
+    background-color: #4CAF50; /* Verde */
+    color: var(--bg-white);
+}
+
+.edit-button:hover {
+    background-color: #45a049; /* Verde mais escuro */
+}
+
+.delete-button {
+    background-color: #F44336; /* Vermelho */
+    color: var(--bg-white);
+}
+
+.delete-button:hover {
+    background-color: #da190b; /* Vermelho mais escuro */
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filters-grid {
+        grid-template-columns: 1fr; /* Coluna única em telas menores */
+    }
+
+    .capsules-grid {
+        grid-template-columns: 1fr; /* Coluna única em telas menores */
+    }
+
+    .capsule-card {
+        min-width: unset; /* Remove min-width em telas pequenas */
+    }
+}
