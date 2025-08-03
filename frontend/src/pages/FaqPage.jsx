@@ -60,7 +60,7 @@ const FaqPage = () => {
                     <div className="faq-item">
                         <h3>Existe um limite para o número de cápsulas ou arquivos que posso armazenar?</h3>
                         <p>
-                            Atualmente, não há limite para o número de cápsulas criadas. Para mídias, cada cápsula pode armazenar 01 imagem e 01 áudio de até 30 segundos, além de um texto sem limite de caracteres.
+                            Atualmente, não há limite para o número de cápsulas criadas. Para mídias, cada cápsula pode armazenar 01 imagem e 01 áudio de até 40 segundos, além de um texto sem limite de caracteres.
                         </p>
                     </div>
                 </section>
