@@ -51,6 +51,7 @@ EMAIL_RECEIVER = os.environ.get('EMAIL_RECEIVER_CAPSULA') # O e-mail para onde a
 # Configurar o Serializer do itsdangerous
 # O 'salt' ajuda a garantir que tokens gerados para diferentes propósitos
 # ou com o mesmo valor (e.g., o mesmo email) não sejam idênticos.
+app.config['SECRET_KEY_RESET_PASSWORD'] = os.environ.get('SECRET_KEY_RESET_PASSWORD', 'Rfocmn458#%dkc)dmvk21L30SdCCh6')
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY_RESET_PASSWORD'])
 
 # Função para gerar o token de redefinição
