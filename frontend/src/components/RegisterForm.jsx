@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const RegisterForm = () => {
   const [name, setName] = useState('')
@@ -12,6 +12,15 @@ const RegisterForm = () => {
 
   const { register } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search)
+    const emailFromUrl = queryParams.get('email')
+    if (emailFromUrl) {
+      setEmail(emailFromUrl)
+    }
+  }, [location])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -38,7 +47,7 @@ const RegisterForm = () => {
       <div className="auth-card">
         <div className="logo">
           <h1>Capsula</h1>
-          <p>Live Intensely Preserve Forever</p>
+          <p>Viva Intensamente. Preserve Para Sempre.</p>
         </div>
 
         <form onSubmit={handleSubmit}>

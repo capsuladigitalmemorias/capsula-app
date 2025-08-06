@@ -80,7 +80,7 @@ const LoginForm = () => {
           </button>
 
           <p className="auth-switch">
-            Não tem conta? <Link to="/register">Registre-se</Link>
+            Não tem uma assinatura? <Link to="/assinaturas">Assine Agora</Link>
           </p>
 
           {/* NOVO: Link de Esqueci minha senha */}
