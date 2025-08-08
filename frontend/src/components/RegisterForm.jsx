@@ -46,8 +46,8 @@ const RegisterForm = () => {
     <div className="auth-container">
       <div className="auth-card">
         <div className="logo">
-          <h1>Capsula</h1>
-          <p>Viva Intensamente. Preserve Para Sempre.</p>
+          <h1>Cápsula</h1>
+          <p>Viva intensamente. Preserve para sempre.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
