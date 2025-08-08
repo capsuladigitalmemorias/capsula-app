@@ -4,7 +4,7 @@ import sys
 from flask_admin import Admin, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, current_user, UserMixin, login_required, logout_user, login_user
-from flask import Flask, jsonify, request, send_from_directory, send_file, current_app, abort, redirect, url_for, flash, render_template # AJUSTE: Adicionado render_template
+from flask import Flask, jsonify, request, send_from_directory, send_file, current_app, abort, redirect, url_for, flash, render_template
 from flask_mail import Mail, Message
 from itsdangerous import URLSafeTimedSerializer
 from flask_sqlalchemy import SQLAlchemy
@@ -15,12 +15,16 @@ import jwt
 from functools import wraps
 from sqlalchemy import extract, and_, or_, func
 from sqlalchemy.orm import joinedload
-from PIL import Image
+from PIL import Image, ExifTags # Adicionado ExifTags para a normalização de imagem
 import uuid
 from pydub import AudioSegment
 from flask_babel import Babel
 from flask_admin.base import AdminIndexView
 from wtforms import PasswordField
+import stripe
+# Importação dupla de request e jsonify removida, já está acima
+# from flask import request, jsonify
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 template_dir = os.path.join(os.path.dirname(basedir), 'templates')
@@ -53,6 +57,70 @@ EMAIL_RECEIVER = os.environ.get('EMAIL_RECEIVER_CAPSULA') # O e-mail para onde a
 # ou com o mesmo valor (e.g., o mesmo email) não sejam idênticos.
 app.config['SECRET_KEY_RESET_PASSWORD'] = os.environ.get('SECRET_KEY_RESET_PASSWORD', 'Rfocmn458#%dkc)dmvk21L30SdCCh6')
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY_RESET_PASSWORD'])
+
+
+# ====================================================================================================
+# FUNÇÃO DE NORMALIZAÇÃO DE ORIENTAÇÃO DE IMAGEM (ADICIONADA/AJUSTADA AQUI)
+# ====================================================================================================
+
+def normalize_image_orientation(image_path):
+    """
+    Normaliza a orientação de uma imagem com base em seus dados EXIF.
+    Se uma imagem possui metadados EXIF de orientação, ela rotaciona os pixels da imagem
+    para que a imagem seja exibida corretamente sem depender da tag EXIF,
+    e então remove a tag de orientação.
+    """
+    try:
+        img = Image.open(image_path)
+
+        # Get EXIF data if available
+        # Usando _getexif() para compatibilidade com o padrão comum, getexif() é o preferido para Pillow >= 9.0
+        exif_data = img._getexif()
+        
+        if exif_data:
+            # Encontrar o ID da tag 'Orientation'
+            orientation_tag_id = None
+            for key, value in ExifTags.TAGS.items():
+                if value == 'Orientation':
+                    orientation_tag_id = key
+                    break
+
+            orientation = exif_data.get(orientation_tag_id)
+
+            # Aplicar rotação/espelhamento apropriado com base na orientação EXIF
+            # O método .transpose() é eficiente para rotações de 90/180/270 e espelhamentos.
+            # Ele ajusta as dimensões da imagem automaticamente.
+            if orientation == 2:  # Flipped horizontally
+                img = img.transpose(Image.FLIP_LEFT_RIGHT)
+            elif orientation == 3:  # Rotated 180 degrees
+                img = img.transpose(Image.ROTATE_180)
+            elif orientation == 4:  # Flipped vertically
+                img = img.transpose(Image.FLIP_TOP_BOTTOM)
+            elif orientation == 5:  # Transpose (rotate 90 counter-clockwise and flip vertically)
+                img = img.transpose(Image.TRANSPOSE)
+            elif orientation == 6:  # Rotated 90 degrees clockwise
+                img = img.transpose(Image.ROTATE_270) # Equivalente a 90 graus anti-horário
+            elif orientation == 7:  # Transverse (rotate 90 clockwise and flip vertically)
+                img = img.transpose(Image.TRANSVERSE)
+            elif orientation == 8:  # Rotated 270 degrees clockwise
+                img = img.transpose(Image.ROTATE_90) # Equivalente a 270 graus anti-horário
+            
+            # Salva a imagem (sobrescrevendo a original) após a correção da orientação
+            # A tag EXIF 'Orientation' será automaticamente removida ou corrigida pelo Pillow
+            # ao salvar, já que os pixels foram fisicamente girados.
+            img.save(image_path)
+            print(f"DEBUG: Orientação da imagem corrigida e salva para: {image_path}")
+        img.close() # Sempre fechar o manipulador do arquivo
+    except (AttributeError, KeyError, IndexError, FileNotFoundError) as e:
+        # Trata casos onde não há dados EXIF, a tag não é encontrada ou o arquivo não existe.
+        print(f"DEBUG: Erro específico ou sem dados EXIF de orientação para {image_path}: {e}. Pulando normalização.")
+    except Exception as e:
+        print(f"ERRO: Erro geral durante a normalização da orientação da imagem para {image_path}: {e}")
+
+# ====================================================================================================
+# FIM DA FUNÇÃO DE NORMALIZAÇÃO DE ORIENTAÇÃO DE IMAGEM
+# ====================================================================================================
+
 
 # Função para gerar o token de redefinição
 def generate_reset_token(user_email):
@@ -600,7 +668,7 @@ JPEG_QUALITY = 85
 
 def optimize_and_resize_image(image_path: str, max_dimension: int = MAX_IMAGE_DIMENSION, quality: int = JPEG_QUALITY):
     print(f"Attempting to optimize and resize image: {image_path}")
-    img = None
+    img = None # Inicializa img como None para garantir que seja fechado no finally
     try:
         img = Image.open(image_path)
         original_width, original_height = img.size
@@ -678,7 +746,7 @@ def optimize_and_resize_image(image_path: str, max_dimension: int = MAX_IMAGE_DI
         print(f"Error processing image {image_path}: {e}")
         raise
     finally:
-        if img:
+        if img: # Garante que o objeto imagem seja fechado
             img.close()
 
 # --- ROTAS DA API (totalmente preservadas) ---
@@ -718,15 +786,15 @@ def register():
                     <h2>Bem-vindo(a) ao Capsula!</h2>
                 </div>
                 <p>Olá {nome_usuario if nome_usuario else 'colega'},</p>
-                <p>Seu cadastro foi realizado com sucesso! Estamos muito felizes em ter você conosco na Capsula, onde você pode **"Viva Intensamente, Preserve para Sempre"**.</p>
+                <p>Seu cadastro foi realizado com sucesso! Estamos felizes em ter você conosco na Capsula.</p>
                 <p>Para começar a guardar suas memórias e experiências, acesse sua área:</p>
                 <p style="text-align: center;">
-                    <a href="https://capsula-wilder.pythonanywhere.com/dashboard" class="button" target="_blank">Acessar Minha Capsula</a>
+                    <a href="https://app.capsuladigital.com.br/login" class="button" target="_blank">Acessar Minha Capsula</a>
                 </p>
                 <p>Se tiver qualquer dúvida ou precisar de ajuda, nossa equipe está sempre à disposição.</p>
                 <p>Atenciosamente,<br>A Equipe Capsula</p>
                 <div class="footer">
-                    <p><a href="https://capsula-wilder.pythonanywhere.com/faq" target="_blank">Dúvidas Frequentes</a> | <a href="https://capsula-wilder.pythonanywhere.com/contato" target="_blank">Contato</a></p>
+                    <p><a href="https://www.capsuladigital.com.br/#faq" target="_blank">Perguntas Frequentes</a> | <a href="https://app.capsuladigital.com.br/contato" target="_blank">Contato</a></p>
                 </div>
             </div>
         </body>
@@ -1489,6 +1557,15 @@ def upload_media(current_user_from_token):
 
             if file_type == 'image':
                 try:
+                    # ====================================================================================
+                    # CHAMADA À FUNÇÃO DE NORMALIZAÇÃO DE ORIENTAÇÃO - INSERIDA AQUI
+                    # ====================================================================================
+                    print(f"DEBUG: Chamando normalize_image_orientation para {final_file_path_on_disk}")
+                    normalize_image_orientation(final_file_path_on_disk)
+                    # ====================================================================================
+                    # FIM DA CHAMADA
+                    # ====================================================================================
+
                     print("Calling optimize_and_resize_image for an image file.")
                     optimization_applied = optimize_and_resize_image(final_file_path_on_disk, max_dimension=MAX_IMAGE_DIMENSION, quality=JPEG_QUALITY)
                     file_size_final = os.path.getsize(final_file_path_on_disk)
@@ -1581,6 +1658,59 @@ def delete_single_media(current_user_from_token, media_id):
         db.session.rollback()
         print(f"Error deleting media file {media_id}: {e}")
         return jsonify({'message': f'Erro ao excluir mídia: {str(e)}'}), 500
+
+@app.route('/api/checkout-session/<session_id>', methods=['GET'])
+def get_checkout_session(session_id):
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+        customer_email = session.customer_email
+        return jsonify({'email': customer_email})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+# Configure sua chave secreta Stripe
+stripe.api_key = 'sk_test_51RsZpYGmed08xBS1Z9Zf1oXSH0Gzse0wbzKyU9YmuoJrTH9Mu3fF6SSLuoOI3CR6p9K8queWXzy9wZUzm9oEPSvc00OB6mKTvi'
+
+@app.route('/criar-assinatura', methods=['POST'])
+def criar_assinatura():
+    data = request.get_json()
+
+    email = data.get('email', '').strip()
+    plano = data.get('plano', 'mensal')  # padrão mensal
+
+    # Definimos trial fixo em 3 dias para o fluxo que combinamos
+    trial_days = 3
+
+    price_ids = {
+        'mensal': 'price_1RsZuIGmed08xBS1pbgvXdV4',
+        'anual': 'price_1RsZxWGmed08xBS1QeFw3USO',
+    }
+
+    if plano not in price_ids:
+        return jsonify({'error': 'Plano inválido. Use "mensal" ou "anual".'}), 400
+
+    try:
+        session_params = {
+            'mode': 'subscription',
+            'line_items': [{
+                'price': price_ids[plano],
+                'quantity': 1,
+            }],
+            'success_url': 'https://app.capsuladigital.com.br/sucesso?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url': 'https://app.capsuladigital.com.br/cancelado',
+            'subscription_data': {'trial_period_days': trial_days}
+        }
+
+        # Só passa o email se for diferente de vazio e do placeholder
+        if email and email.lower() != 'usuario@email.com':
+            session_params['customer_email'] = email
+
+        session = stripe.checkout.Session.create(**session_params)
+
+        return jsonify({'checkout_url': session.url})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/api', methods=['GET'])
 def api_info():
