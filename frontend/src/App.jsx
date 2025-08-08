@@ -24,6 +24,10 @@ import FaqPage from './pages/FaqPage';
 import './index.css';
 import './App.css';
 import './GlobalStyles.css';
+import Assinaturas from './pages/Assinaturas';
+import SuccessPage from './pages/SuccessPage';
+import CancelPage from './pages/CancelPage';
+
 
 
 const isIos = () => {
@@ -175,6 +179,9 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/contato" element={<ContactPage />} />
             <Route path="/faq" element={<FaqPage />} />
+            <Route path="/assinaturas" element={<Assinaturas />} />
+            <Route path="/sucesso" element={<SuccessPage />} />
+            <Route path="/cancelado" element={<CancelPage />} />
           </Routes>
         </div>
         <Footer />
